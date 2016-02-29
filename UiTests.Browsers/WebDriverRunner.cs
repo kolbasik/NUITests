@@ -7,13 +7,18 @@ using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 
-namespace UiTests.Browsers
+namespace UiTests.Web
 {
     public static class WebDriverRunner
     {
         public static IWebDriver Run(string browserName, bool isRemote, string remoteUrl)
         {
             var driver = isRemote ? ConnectToRemoteWebDriver(browserName, remoteUrl) : StartEmbededWebDriver(browserName);
+            var options = driver.Manage();
+            var timeouts = options.Timeouts();
+            timeouts.SetPageLoadTimeout(TimeSpan.FromSeconds(10));
+            timeouts.SetScriptTimeout(TimeSpan.FromSeconds(2.5));
+            options.Window.Maximize();
             return driver;
         }
 

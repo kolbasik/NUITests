@@ -3,14 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HabrahabrRuUiTests", "HabrahabrRuUiTests\HabrahabrRuUiTests.csproj", "{4C77DCAB-D502-4BFF-A140-4580C2675F40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiTests.Google.Tests", "HabrahabrRuUiTests\UiTests.Google.Tests.csproj", "{4C77DCAB-D502-4BFF-A140-4580C2675F40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiTests.Browsers", "UiTests.Browsers\UiTests.Browsers.csproj", "{E6DD9986-8766-4460-B5EE-2FC0890F40AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiTests.Web", "UiTests.Browsers\UiTests.Web.csproj", "{E6DD9986-8766-4460-B5EE-2FC0890F40AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{147ED64E-D67B-4F16-A45A-0532A362E4DC}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection

@@ -1,55 +1,45 @@
 ﻿using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
 
-namespace UiTests.Browsers
+namespace UiTests.Web
 {
-    public abstract class PageObject
+    public abstract class PageObject : PageElement
     {
-        protected WebDriverContext WebDriverContext { get; private set; }
-        protected IWebDriver WebDriver { get { return WebDriverContext.WebDriver; } }
-
-        public void Initialize(WebDriverContext wdc)
+        public TElement GetElement<TElement>() where TElement : PageElement, new()
         {
-            if (wdc == null) throw new ArgumentNullException(nameof(wdc));
-            WebDriverContext = wdc;
-            PageFactory.InitElements(wdc.WebDriver, this);
+            var element = new TElement();
+            element.Initialize(Browser);
+            return element;
         }
 
         public abstract void Invoke();
 
-        public abstract bool IsDisplayed();
-
-        public abstract void VerifyElements();
-
         public void TrackJavascriptErrors()
         {
             var javascript = @"
-return function(w, e) {
-	var errors = w[e] = [];
-	w.onerror = function (error, url, line) {
-		var message = 'Error: [' + error + '], url: [' + url + '], line: [' + line + ']';
-		errors.push(message);
-		return false;
-	};
-}(window, '__WebDriver_Errors__');";
+var w = this, e = '__WebDriver_Errors__';
+var errors = w[e] = [];
+w.onerror = function (error, url, line) {
+	var message = 'Error: [' + error + '], url: [' + url + '], line: [' + line + ']';
+	errors.push(message);
+	return false;
+};
+return '';";
 
-            WebDriverContext.ExecuteScript<object>(javascript);
+            Browser.ExecuteScript<string>(javascript);
         }
 
         public void VerifyJavascriptErrors()
         {
             var javascript = @"
-return function(w, e) {
-    var errors = w[e] || [];
-    try {
-        return errors.join('\n');
-    } finally {
-        errors.length = 0;
-    }
-}(window, '__WebDriver_Errors__');";
+var w = this, e = '__WebDriver_Errors__';
+var errors = w[e] || [];
+try {
+    return errors.join('\n');
+} finally {
+    errors.length = 0;
+}";
 
-            var errors = WebDriverContext.ExecuteScript<string>(javascript);
+            var errors = Browser.ExecuteScript<string>(javascript);
             if (!string.IsNullOrEmpty(errors))
             {
                 throw new InvalidOperationException(errors);

@@ -1,6 +1,6 @@
 using System.Configuration;
 
-namespace UiTests.Browsers
+namespace UiTests.Web
 {
     public sealed class WebDriverConfig
     {

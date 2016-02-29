@@ -1,4 +1,4 @@
-﻿namespace UiTests.Browsers
+﻿namespace UiTests.Web
 {
     public static class BrowserNames
     {
